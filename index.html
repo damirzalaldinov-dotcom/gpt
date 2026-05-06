@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ремонт квартир по дизайн-проекту</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+    }
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+    .hero {
+      min-height: 100vh;
+      padding: 70px 0;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #111 0%, #1f1f1f 100%);
+    }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 10px 14px;
+      border: 1px solid rgba(217,181,109,.4);
+      border-radius: 999px;
+      color: #d9b56d;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    h1 {
+      max-width: 850px;
+      margin: 0 0 24px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: .98;
+      letter-spacing: -.05em;
+    }
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+    h3 { margin: 0 0 10px; font-size: 22px; }
+    p {
+      max-width: 680px;
+      margin: 0 0 30px;
+      color: #d4d4d4;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 16px 26px;
+      border-radius: 999px;
+      background: #d9b56d;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .button_secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .section { padding: 88px 0; }
+    .section_dark { background: #171717; }
+    .section-head { max-width: 760px; margin-bottom: 36px; }
+    .grid { display: grid; gap: 18px; }
+    .grid_3 { grid-template-columns: repeat(3, 1fr); }
+    .grid_4 { grid-template-columns: repeat(4, 1fr); }
+    .card {
+      padding: 26px;
+      border-radius: 24px;
+      background: #202020;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .card p { margin: 0; font-size: 16px; color: #c9c9c9; }
+    .portfolio {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+    }
+    .portfolio-item {
+      min-height: 320px;
+      padding: 24px;
+      border-radius: 28px;
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(135deg, rgba(217,181,109,.25), rgba(255,255,255,.06)), #222;
+    }
+    .portfolio-item_small { min-height: 151px; }
+    details {
+      padding: 22px 24px;
+      border-radius: 20px;
+      background: #202020;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    summary { cursor: pointer; font-size: 18px; font-weight: 700; }
+    details p { margin: 16px 0 0; font-size: 16px; }
+    .form-wrap {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    form {
+      display: grid;
+      gap: 14px;
+      padding: 28px;
+      border-radius: 28px;
+      background: #202020;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: #151515;
+      color: #fff;
+      font: inherit;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .footer {
+      padding: 32px 0;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    @media (max-width: 900px) {
+      .grid_3, .grid_4, .portfolio, .form-wrap { grid-template-columns: 1fr; }
+      .section { padding: 64px 0; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .hero { min-height: auto; padding: 70px 0; }
+      .actions { align-items: stretch; }
+      .button { width: 100%; }
+      .card, form, details { padding: 20px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">Отделка квартир комфорт+ и бизнес-класса</span>
+        <h1>Ремонт квартиры по дизайн-проекту без потери смысла проекта</h1>
+        <p>Выполняем отделку, комплектацию материалами и мебелью с контролем сроков, качества и коммуникации на каждом этапе.</p>
+        <div class="actions">
+          <a class="button" href="#request">Оставить заявку</a>
+          <a class="button button_secondary" href="#stages">Посмотреть этапы</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Что берем на себя</h2>
+          <p>Организуем процесс так, чтобы проект был реализован аккуратно, последовательно и с понятной ответственностью.</p>
+        </div>
+        <div class="grid grid_4">
+          <article class="card"><h3>Работа по проекту</h3><p>Сверяем решения с чертежами, узлами, спецификациями и согласованными материалами.</p></article>
+          <article class="card"><h3>Контроль сроков</h3><p>Планируем этапы, фиксируем очередность работ и контролируем фактическое выполнение.</p></article>
+          <article class="card"><h3>Комплектация</h3><p>Помогаем с материалами, поставками, мебелью и сопутствующими решениями.</p></article>
+          <article class="card"><h3>Коммуникация</h3><p>Даем понятную обратную связь по работам, вопросам и решениям на объекте.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section_dark" id="stages">
+      <div class="container">
+        <div class="section-head">
+          <h2>Этапы работы</h2>
+          <p>Структура процесса помогает заранее понимать объем, последовательность и точки контроля.</p>
+        </div>
+        <div class="grid grid_3">
+          <article class="card"><h3>1. Анализ проекта</h3><p>Изучаем чертежи, ведомости, требования и исходное состояние квартиры.</p></article>
+          <article class="card"><h3>2. Смета и график</h3><p>Формируем состав работ, этапность, бюджет и порядок взаимодействия.</p></article>
+          <article class="card"><h3>3. Реализация</h3><p>Выполняем работы, ведем контроль качества и согласуем возникающие вопросы.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Портфолио</h2>
+          <p>Блок подготовлен под реальные фотографии объектов. Их можно добавить следующим этапом.</p>
+        </div>
+        <div class="portfolio">
+          <div class="portfolio-item"><h3>Квартира 120 м²</h3></div>
+          <div class="grid">
+            <div class="portfolio-item portfolio-item_small"><h3>Санузел</h3></div>
+            <div class="portfolio-item portfolio-item_small"><h3>Кухня-гостиная</h3></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section_dark">
+      <div class="container">
+        <div class="section-head"><h2>Частые вопросы</h2></div>
+        <div class="grid">
+          <details><summary>Можно ли работать по готовому дизайн-проекту?</summary><p>Да. Мы изучаем проект, уточняем спорные места и реализуем работы по согласованной документации.</p></details>
+          <details><summary>Можно ли заказать материалы и мебель через вас?</summary><p>Да. Комплектация может входить в состав работ, если это согласовано на старте.</p></details>
+          <details><summary>Как контролируются сроки?</summary><p>Через этапность, график, фиксацию задач и регулярную обратную связь по объекту.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="request">
+      <div class="container form-wrap">
+        <div class="section-head">
+          <h2>Оставьте заявку</h2>
+          <p>Напишите имя и телефон. После отправки появится уведомление. Подключение реальной формы можно сделать следующим этапом.</p>
+        </div>
+        <form>
+          <input type="text" name="name" placeholder="Ваше имя" required>
+          <input type="tel" name="phone" placeholder="Телефон" required>
+          <textarea name="message" placeholder="Кратко опишите задачу"></textarea>
+          <button class="button" type="submit">Отправить заявку</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© Ремонт квартир по дизайн-проекту</div>
+  </footer>
+
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      alert('Заявка отправлена. Мы свяжемся с Вами.');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
