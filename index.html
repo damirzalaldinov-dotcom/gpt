@@ -5,173 +5,596 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ремонт квартир по дизайн-проекту</title>
   <style>
+    :root {
+      --bg: #f4f1ea;
+      --surface: #fffdf8;
+      --surface-soft: #ebe7dd;
+      --ink: #24211d;
+      --muted: #6f6a61;
+      --muted-light: #8c867a;
+      --line: #d9d1c2;
+      --line-strong: #bbb1a1;
+      --accent: #7a5b35;
+      --accent-dark: #4d3824;
+      --shadow: 0 26px 70px rgba(51, 43, 32, .1);
+      --radius: 26px;
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
+      font-family: Inter, Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(36,33,29,.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(36,33,29,.035) 1px, transparent 1px);
+      background-size: 96px 96px;
+      mask-image: linear-gradient(to bottom, #000 0 32%, transparent 78%);
+    }
+
+    a { color: inherit; }
+
     .container {
-      width: min(1120px, calc(100% - 40px));
+      width: min(1180px, calc(100% - 48px));
       margin: 0 auto;
     }
-    .hero {
-      min-height: 100vh;
-      padding: 70px 0;
+
+    .topbar {
+      position: fixed;
+      top: 18px;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .nav {
       display: flex;
       align-items: center;
-      background: linear-gradient(135deg, #111 0%, #1f1f1f 100%);
-    }
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 22px;
-      padding: 10px 14px;
-      border: 1px solid rgba(217,181,109,.4);
+      justify-content: space-between;
+      gap: 28px;
+      min-height: 64px;
+      padding: 12px 18px 12px 22px;
+      border: 1px solid rgba(36, 33, 29, .1);
       border-radius: 999px;
-      color: #d9b56d;
-      font-size: 14px;
+      background: rgba(255, 253, 248, .82);
+      box-shadow: 0 18px 50px rgba(42, 35, 25, .08);
+      backdrop-filter: blur(18px);
+      pointer-events: auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-decoration: none;
       text-transform: uppercase;
-      letter-spacing: .04em;
+      white-space: nowrap;
     }
-    h1 {
-      max-width: 850px;
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: end;
+      padding: 150px 0 82px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) 360px;
+      gap: 72px;
+      align-items: end;
+    }
+
+    .eyebrow,
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       margin: 0 0 24px;
-      font-size: clamp(42px, 7vw, 82px);
-      line-height: .98;
-      letter-spacing: -.05em;
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
+
+    .eyebrow::before,
+    .section-label::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3,
+    p { text-wrap: pretty; }
+
+    h1 {
+      max-width: 920px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(52px, 8vw, 112px);
+      font-weight: 400;
+      line-height: .92;
+      letter-spacing: -.07em;
+    }
+
+    h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
     h2 {
-      margin: 0 0 18px;
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 1.05;
-      letter-spacing: -.04em;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 4.8vw, 68px);
+      font-weight: 400;
+      line-height: .98;
+      letter-spacing: -.055em;
     }
-    h3 { margin: 0 0 10px; font-size: 22px; }
+
+    h3 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+
     p {
-      max-width: 680px;
-      margin: 0 0 30px;
-      color: #d4d4d4;
-      font-size: 20px;
-      line-height: 1.5;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.62;
     }
-    .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-intro {
+      display: grid;
+      gap: 32px;
+      max-width: 550px;
+    }
+
+    .hero-intro p { font-size: 20px; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 54px;
-      padding: 16px 26px;
+      padding: 15px 24px;
+      border: 1px solid var(--ink);
       border-radius: 999px;
-      background: #d9b56d;
-      color: #111;
-      text-decoration: none;
+      background: var(--ink);
+      color: var(--surface);
+      font: inherit;
+      font-size: 15px;
       font-weight: 700;
-      border: 0;
+      text-decoration: none;
       cursor: pointer;
-      font-size: 16px;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
     }
+
+    .button:hover { transform: translateY(-2px); }
+
     .button_secondary {
       background: transparent;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.25);
+      color: var(--ink);
     }
-    .section { padding: 88px 0; }
-    .section_dark { background: #171717; }
-    .section-head { max-width: 760px; margin-bottom: 36px; }
-    .grid { display: grid; gap: 18px; }
+
+    .button_secondary:hover {
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .project-note {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: var(--shadow);
+    }
+
+    .project-note__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 26px;
+      margin-bottom: 26px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project-note strong {
+      display: block;
+      max-width: 210px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+
+    .project-note span {
+      color: var(--muted-light);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .project-note p { font-size: 16px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 72px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .stat {
+      padding: 24px;
+      background: rgba(255, 253, 248, .62);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.42;
+    }
+
+    .section {
+      padding: 104px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section_tint { background: rgba(255, 253, 248, .42); }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, .72fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 46px;
+    }
+
+    .section-head p { max-width: 560px; }
+
+    .grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
     .grid_3 { grid-template-columns: repeat(3, 1fr); }
     .grid_4 { grid-template-columns: repeat(4, 1fr); }
+
     .card {
-      padding: 26px;
-      border-radius: 24px;
-      background: #202020;
-      border: 1px solid rgba(255,255,255,.08);
+      min-height: 248px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 34px;
+      padding: 30px;
+      background: var(--surface);
     }
-    .card p { margin: 0; font-size: 16px; color: #c9c9c9; }
+
+    .card::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .card p {
+      font-size: 16px;
+      line-height: 1.58;
+    }
+
+    .stage-card { counter-increment: stage; }
+
+    .stage-card::before {
+      content: "0" counter(stage);
+      width: auto;
+      height: auto;
+      background: none;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .stages-grid { counter-reset: stage; }
+
     .portfolio {
       display: grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.25fr .75fr;
       gap: 18px;
     }
+
     .portfolio-item {
-      min-height: 320px;
-      padding: 24px;
-      border-radius: 28px;
+      min-height: 390px;
       display: flex;
       align-items: flex-end;
-      background: linear-gradient(135deg, rgba(217,181,109,.25), rgba(255,255,255,.06)), #222;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
     }
-    .portfolio-item_small { min-height: 151px; }
+
+    .portfolio-item h3 { max-width: 220px; }
+
+    .portfolio-item span {
+      color: var(--muted-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .portfolio-item_small { min-height: 186px; }
+
     details {
-      padding: 22px 24px;
-      border-radius: 20px;
-      background: #202020;
-      border: 1px solid rgba(255,255,255,.08);
+      padding: 0;
+      border: 1px solid var(--line);
+      background: var(--surface);
     }
-    summary { cursor: pointer; font-size: 18px; font-weight: 700; }
-    details p { margin: 16px 0 0; font-size: 16px; }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 24px 28px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.015em;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    details p {
+      max-width: 760px;
+      padding: 0 28px 26px;
+      font-size: 16px;
+    }
+
     .form-wrap {
       display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 28px;
+      grid-template-columns: .88fr 1.12fr;
+      gap: 56px;
       align-items: start;
     }
+
     form {
       display: grid;
-      gap: 14px;
-      padding: 28px;
-      border-radius: 28px;
-      background: #202020;
-      border: 1px solid rgba(255,255,255,.08);
+      gap: 16px;
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
     }
-    input, textarea {
+
+    .field { display: grid; gap: 9px; }
+
+    label {
+      color: var(--muted-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    input,
+    textarea {
       width: 100%;
-      padding: 16px 18px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: #151515;
-      color: #fff;
+      padding: 16px 0;
+      border: 0;
+      border-bottom: 1px solid var(--line-strong);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
       font: inherit;
+      outline: none;
+      transition: border-color .2s ease;
     }
-    textarea { min-height: 110px; resize: vertical; }
+
+    input:focus,
+    textarea:focus { border-color: var(--ink); }
+
+    input::placeholder,
+    textarea::placeholder { color: #aaa398; }
+
+    textarea { min-height: 112px; resize: vertical; }
+
+    .form-note {
+      color: var(--muted-light);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
     .footer {
-      padding: 32px 0;
-      color: #aaa;
-      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--surface);
+      font-size: 14px;
     }
-    @media (max-width: 900px) {
-      .grid_3, .grid_4, .portfolio, .form-wrap { grid-template-columns: 1fr; }
-      .section { padding: 64px 0; }
+
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    @media (max-width: 560px) {
-      .container { width: min(100% - 28px, 1120px); }
-      .hero { min-height: auto; padding: 70px 0; }
-      .actions { align-items: stretch; }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .grid_3,
+      .grid_4,
+      .portfolio,
+      .form-wrap { grid-template-columns: 1fr; }
+
+      .hero {
+        min-height: auto;
+        padding-top: 132px;
+      }
+
+      .hero-grid { gap: 42px; }
+      .project-note { max-width: 520px; }
+      .section { padding: 76px 0; }
+      .nav-links { display: none; }
+      .card { min-height: 210px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, 1180px); }
+      .topbar { top: 12px; }
+      .nav { border-radius: 22px; }
+      .brand { font-size: 11px; letter-spacing: .08em; }
+      .hero { padding: 112px 0 58px; }
+      .actions,
+      .stats { grid-template-columns: 1fr; }
       .button { width: 100%; }
-      .card, form, details { padding: 20px; border-radius: 20px; }
+      .stats { margin-top: 46px; }
+      .project-note,
+      form { padding: 24px; border-radius: 20px; }
+      .project-note__top { display: grid; }
+      .portfolio-item { min-height: 260px; align-items: flex-end; }
+      .portfolio-item_small { min-height: 180px; }
+      summary { padding: 22px; }
+      details p { padding: 0 22px 22px; }
     }
   </style>
 </head>
 <body>
-  <main>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="На главную">
+        <span class="brand-mark">R</span>
+        <span>Renovation Bureau</span>
+      </a>
+      <nav class="nav-links" aria-label="Навигация по странице">
+        <a href="#services">Услуги</a>
+        <a href="#stages">Этапы</a>
+        <a href="#portfolio">Портфолио</a>
+        <a href="#request">Заявка</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
     <section class="hero">
       <div class="container">
         <span class="eyebrow">Отделка квартир комфорт+ и бизнес-класса</span>
-        <h1>Ремонт квартиры по дизайн-проекту без потери смысла проекта</h1>
-        <p>Выполняем отделку, комплектацию материалами и мебелью с контролем сроков, качества и коммуникации на каждом этапе.</p>
-        <div class="actions">
-          <a class="button" href="#request">Оставить заявку</a>
-          <a class="button button_secondary" href="#stages">Посмотреть этапы</a>
+        <div class="hero-grid">
+          <div>
+            <h1>Ремонт квартиры по дизайн-проекту <em>без потери смысла</em> проекта</h1>
+          </div>
+          <div class="hero-intro">
+            <p>Выполняем отделку, комплектацию материалами и мебелью с контролем сроков, качества и коммуникации на каждом этапе.</p>
+            <div class="actions">
+              <a class="button" href="#request">Оставить заявку</a>
+              <a class="button button_secondary" href="#stages">Посмотреть этапы</a>
+            </div>
+            <aside class="project-note" aria-label="Подход к работе">
+              <div class="project-note__top">
+                <strong>Точный процесс вместо хаоса</strong>
+                <span>Project control</span>
+              </div>
+              <p>Проверяем проектные решения, ведем закупки и фиксируем изменения, чтобы финальный интерьер соответствовал задумке дизайнера.</p>
+            </aside>
+          </div>
+        </div>
+        <div class="stats" aria-label="Преимущества">
+          <div class="stat"><strong>1</strong><span>ответственный менеджер на весь проект</span></div>
+          <div class="stat"><strong>3</strong><span>ключевые точки контроля до старта работ</span></div>
+          <div class="stat"><strong>100%</strong><span>работа по согласованной документации</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section_tint" id="services">
       <div class="container">
         <div class="section-head">
-          <h2>Что берем на себя</h2>
+          <div>
+            <span class="section-label">Сервис</span>
+            <h2>Что берем на себя</h2>
+          </div>
           <p>Организуем процесс так, чтобы проект был реализован аккуратно, последовательно и с понятной ответственностью.</p>
         </div>
         <div class="grid grid_4">
@@ -183,16 +606,38 @@
       </div>
     </section>
 
-    <section class="section section_dark" id="stages">
+    <section class="section" id="stages">
       <div class="container">
         <div class="section-head">
-          <h2>Этапы работы</h2>
+          <div>
+            <span class="section-label">Метод</span>
+            <h2>Этапы работы</h2>
+          </div>
           <p>Структура процесса помогает заранее понимать объем, последовательность и точки контроля.</p>
         </div>
-        <div class="grid grid_3">
-          <article class="card"><h3>1. Анализ проекта</h3><p>Изучаем чертежи, ведомости, требования и исходное состояние квартиры.</p></article>
-          <article class="card"><h3>2. Смета и график</h3><p>Формируем состав работ, этапность, бюджет и порядок взаимодействия.</p></article>
-          <article class="card"><h3>3. Реализация</h3><p>Выполняем работы, ведем контроль качества и согласуем возникающие вопросы.</p></article>
+        <div class="grid grid_3 stages-grid">
+          <article class="card stage-card"><h3>Анализ проекта</h3><p>Изучаем чертежи, ведомости, требования и исходное состояние квартиры.</p></article>
+          <article class="card stage-card"><h3>Смета и график</h3><p>Формируем состав работ, этапность, бюджет и порядок взаимодействия.</p></article>
+          <article class="card stage-card"><h3>Реализация</h3><p>Выполняем работы, ведем контроль качества и согласуем возникающие вопросы.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section_tint" id="portfolio">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-label">Работы</span>
+            <h2>Портфолио</h2>
+          </div>
+          <p>Блок подготовлен под реальные фотографии объектов. Их можно добавить следующим этапом.</p>
+        </div>
+        <div class="portfolio">
+          <div class="portfolio-item"><h3>Квартира 120 м²</h3><span>Фото объекта</span></div>
+          <div class="grid">
+            <div class="portfolio-item portfolio-item_small"><h3>Санузел</h3><span>Фото объекта</span></div>
+            <div class="portfolio-item portfolio-item_small"><h3>Кухня-гостиная</h3><span>Фото объекта</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -200,22 +645,11 @@
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <h2>Портфолио</h2>
-          <p>Блок подготовлен под реальные фотографии объектов. Их можно добавить следующим этапом.</p>
-        </div>
-        <div class="portfolio">
-          <div class="portfolio-item"><h3>Квартира 120 м²</h3></div>
-          <div class="grid">
-            <div class="portfolio-item portfolio-item_small"><h3>Санузел</h3></div>
-            <div class="portfolio-item portfolio-item_small"><h3>Кухня-гостиная</h3></div>
+          <div>
+            <span class="section-label">FAQ</span>
+            <h2>Частые вопросы</h2>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section section_dark">
-      <div class="container">
-        <div class="section-head"><h2>Частые вопросы</h2></div>
         <div class="grid">
           <details><summary>Можно ли работать по готовому дизайн-проекту?</summary><p>Да. Мы изучаем проект, уточняем спорные места и реализуем работы по согласованной документации.</p></details>
           <details><summary>Можно ли заказать материалы и мебель через вас?</summary><p>Да. Комплектация может входить в состав работ, если это согласовано на старте.</p></details>
@@ -224,24 +658,40 @@
       </div>
     </section>
 
-    <section class="section" id="request">
+    <section class="section section_tint" id="request">
       <div class="container form-wrap">
         <div class="section-head">
-          <h2>Оставьте заявку</h2>
+          <div>
+            <span class="section-label">Заявка</span>
+            <h2>Оставьте заявку</h2>
+          </div>
           <p>Напишите имя и телефон. После отправки появится уведомление. Подключение реальной формы можно сделать следующим этапом.</p>
         </div>
         <form>
-          <input type="text" name="name" placeholder="Ваше имя" required>
-          <input type="tel" name="phone" placeholder="Телефон" required>
-          <textarea name="message" placeholder="Кратко опишите задачу"></textarea>
+          <div class="field">
+            <label for="name">Ваше имя</label>
+            <input id="name" type="text" name="name" placeholder="Например, Анна" required>
+          </div>
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input id="phone" type="tel" name="phone" placeholder="+7 999 000-00-00" required>
+          </div>
+          <div class="field">
+            <label for="message">Задача</label>
+            <textarea id="message" name="message" placeholder="Площадь, стадия проекта, желаемые сроки"></textarea>
+          </div>
           <button class="button" type="submit">Отправить заявку</button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь на обратную связь по указанному телефону.</p>
         </form>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">© Ремонт квартир по дизайн-проекту</div>
+    <div class="container">
+      <span>© Ремонт квартир по дизайн-проекту</span>
+      <span>Премиальная отделка · Комплектация · Контроль качества</span>
+    </div>
   </footer>
 
   <script>
